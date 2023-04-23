@@ -14,6 +14,14 @@ class User extends StatefulWidget {
 }
 
 class _UserState extends State<User> {
+  final TextEditingController _controller = TextEditingController(text: "");
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -28,6 +36,7 @@ class _UserState extends State<User> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //user info
                 Text.rich(
                   TextSpan(
                     text: "Hi,    ",
@@ -69,12 +78,18 @@ class _UserState extends State<User> {
                 const SizedBox(
                   height: 20,
                 ),
+
+                //user methods
                 _listTile(
                   color: color,
                   title: "Address",
                   iconData: IconlyLight.profile,
-                  onPress: () {},
                   subtitle: "Subtitle here",
+
+                  //aller dialog method
+                  onPress: () async {
+                    await _showAddressDialog();
+                  },
                 ),
                 _listTile(
                   color: color,
@@ -100,6 +115,8 @@ class _UserState extends State<User> {
                   iconData: IconlyLight.unlock,
                   onPress: () {},
                 ),
+
+                //swith light / dark themes
                 SwitchListTile(
                   //TODO: Изменить цвет переключателя
                   secondary: Icon(
@@ -131,6 +148,33 @@ class _UserState extends State<User> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showAddressDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Update Address"),
+          content: TextField(
+            onChanged: (value) {
+              _controller.text;
+            },
+            controller: _controller,
+            maxLines: 5,
+            decoration: const InputDecoration(
+              hintText: "Your address",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {},
+              child: const Text("Update"),
+            )
+          ],
+        );
+      },
     );
   }
 
