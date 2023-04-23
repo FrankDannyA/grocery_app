@@ -141,13 +141,64 @@ class _UserState extends State<User> {
                   color: color,
                   title: "Logout",
                   iconData: IconlyLight.logout,
-                  onPress: () {},
+                  onPress: () async {
+                    await _showLogoutDialog();
+                  },
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  //methods
+
+  Future<void> _showLogoutDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Image.asset(
+                "assets/images/warning-sign.png",
+                height: 20,
+                width: 20,
+                fit: BoxFit.fill,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              const Text("Sign out"),
+            ],
+          ),
+          content: const Text("Do you want sign out?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+              child: TextWidget(
+                text: "Cancel",
+                color: Colors.cyan,
+                size: 18,
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: TextWidget(
+                text: "OK",
+                color: Colors.red,
+                size: 18,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
