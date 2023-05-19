@@ -73,7 +73,14 @@ class _FeedItemsState extends State<FeedItems> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    const PriceWidget(),
+                    Flexible(
+                      child: PriceWidget(
+                        price: 5.9,
+                        salePrice: 2.99,
+                        textPrice: _quantityController.text,
+                        isOnSale: true,
+                      ),
+                    ),
                     const SizedBox(width: 8),
                     Flexible(
                       child: Row(
@@ -102,6 +109,9 @@ class _FeedItemsState extends State<FeedItems> {
                                   ),
                                 ),
                               ],
+                              onChanged: (value) {
+                                setState(() {});
+                              },
                             ),
                           ),
                         ],
@@ -111,25 +121,28 @@ class _FeedItemsState extends State<FeedItems> {
                 ),
               ),
               Spacer(),
-              TextButton(
-                onPressed: () {},
-                child: TextWidget(
-                  text: "Add to cart",
-                  color: color,
-                  size: 20,
-                  maxLines: 1,
-                ),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Theme.of(context).cardColor),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {},
+                  child: TextWidget(
+                    text: "Add to cart",
+                    color: color,
+                    size: 20,
+                    maxLines: 1,
+                  ),
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).cardColor),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        )),
                       )),
-                    )),
+                ),
               )
             ],
           ),
