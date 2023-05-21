@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app/consts/theme_data.dart';
+import 'package:grocery_app/inner_screen/feeds_screen.dart';
+import 'package:grocery_app/inner_screen/on_sale_screen.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
 import 'package:grocery_app/screens/bottom_bar.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +47,10 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           theme: Styles.themeData(themeProvider.getDarkTheme, context),
           home: BottomBar(),
+          routes: {
+            OnSaleScreen.routeName: (context) => const OnSaleScreen(),
+            FeedsScreen.routeName: (context) => const FeedsScreen(),
+          },
         );
       }),
     );
